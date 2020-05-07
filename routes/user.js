@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 // Import controllers
-const { sayHi } = require('../controllers/user');
+const { signup } = require('../controllers/user');
 
-router.get('/', sayHi);
+router.post('/signup', signup);
 
 module.exports = router;
