@@ -20,6 +20,7 @@ exports.signup = (req, res) => {
     });
 };
 
+// Sign in a user
 exports.signin = (req, res) => {
     // Find user based on email
     const { email, password } = req.body;
@@ -48,3 +49,15 @@ exports.signin = (req, res) => {
         return res.json({ token, user: { _id, email, name, role } });
     });
 };
+
+// Sign out a user
+exports.signout = (req, res) => {
+    res.clearCookie('t');
+    res.json({ message: 'Logout Successfull' });
+};
+
+// Protect a route
+exports.requireSignin = expressJwt({
+    secret: process.env.JWT_SECRET,
+    userProperty: 'auth'
+});
