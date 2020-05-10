@@ -1,4 +1,5 @@
 const Category = require('../models/category');
+const Product = require('../models/product');
 const { errorHandler } = require('../helpers/dbErrorHandler');
 
 // Get a category by Id
@@ -69,5 +70,17 @@ exports.remove = (req, res) => {
                 });
             });
         }
+    });
+};
+
+// List all categories
+exports.list = (req, res) => {
+    Category.find().exec((err, data) => {
+        if (err) {
+            return res.status(400).json({
+                error: errorHandler(err)
+            });
+        }
+        res.json(data);
     });
 };
