@@ -74,13 +74,17 @@ exports.remove = (req, res) => {
 };
 
 // List all categories
-exports.list = (req, res) => {
-    Category.find().exec((err, data) => {
-        if (err) {
-            return res.status(400).json({
-                error: errorHandler(err)
-            });
-        }
-        res.json(data);
-    });
+exports.list = async (req, res) => {
+    try {
+        await Category.find().exec((err, data) => {
+            if (err) {
+                return res.status(400).json({
+                    error: errorHandler(err)
+                });
+            }
+            res.json(data);
+        });
+    } catch (error) {
+        res.status(500).send('Server Error');
+    }
 };

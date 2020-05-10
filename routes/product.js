@@ -8,11 +8,12 @@ const {
     productById,
     read,
     remove,
-    update
+    update,
+    list
 } = require('../controllers/product');
 const { userById } = require('../controllers/user');
 
-// Category routes
+// Product routes
 router.get('/product/:productId', read);
 router.post('/product/create/:userId', requireSignin, isAuth, isAdmin, create);
 router.delete(
@@ -29,6 +30,7 @@ router.put(
     isAdmin,
     update
 );
+router.get('/products', list);
 
 // Router params
 router.param('userId', userById);
